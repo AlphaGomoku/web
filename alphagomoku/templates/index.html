@@ -68,11 +68,10 @@ $('svg').on('click', function(e) {
     loc.x = Math.round((loc.x+5)/10)*10-5
     loc.y = Math.round((loc.y+5)/10)*10-5
     console.log(loc.x+', ' + loc.y);
-  
-        {
-            view.add_circ(loc.x,loc.y)
-          
-        }
+
+    if (view.add_circ(loc.x,loc.y) == false)
+            return;
+
     $('span#point_x').text(loc.x/10);
     $('span#point_y').text(loc.y/10);
 
@@ -98,10 +97,10 @@ function setGo(x,y){
     var pt = svg.createSVGPoint();
     pt.x = x*10; pt.y = y*10;
     var loc = pt.matrixTransform(svg.getScreenCTM().inverse());
-    if (validate.isThere(list_go,loc) == 1)
-        {alert("already there")}
-    else
-        {view.add_circ(x*10+5,y*10+5)}
+
+    if (view.add_circ(x*10+5,y*10+5) == false)
+            return;
+
     $('span#point_x').text(loc.x);
     $('span#point_y').text(loc.y);
 }

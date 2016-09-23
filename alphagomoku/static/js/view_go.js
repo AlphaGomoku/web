@@ -32,7 +32,7 @@ view.add_circ = function (x, y) {
     view.refresh() 
 
     if( validate.isWin(cIdx,xIdx,yIdx))
-       {alert(dol_color+' Win')}
+       {alert(dol_color+' Win'); return false;}
 
      dol_color = dol_color == 'black' ? 'white' : 'black' 
 
