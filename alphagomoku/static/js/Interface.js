@@ -6,7 +6,20 @@ function SetGo(x,y){  //x,y 에 돌 넣기.
 
 function MapState(){ //Map 변수 반환받기
     return Map;
-} 
+}
+
+function MapState1D(){
+    map2D = MapState();
+    map1D = [];
+
+    var cnt = 0;
+    for (var i = 0; i < map2D.length; ++i) {
+        for (var j = 0; j < map2D[0].length; ++j) {
+            map1D[cnt++] = map2D[i][j];
+        }
+    }
+    return map1D;
+}
 
 function PrintMap(){ //Map 변수 확인
     for(var n=0;n<15;n++){

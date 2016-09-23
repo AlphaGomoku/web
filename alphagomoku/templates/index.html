@@ -63,6 +63,7 @@ function cursorPoint(e){
 
 // 바둑돌 놓기
 $('svg').on('click', function(e) {
+
     var loc = cursorPoint(e) 
     loc.x = Math.round((loc.x+5)/10)*10-5
     loc.y = Math.round((loc.y+5)/10)*10-5
@@ -74,7 +75,23 @@ $('svg').on('click', function(e) {
         }
     $('span#point_x').text(loc.x/10);
     $('span#point_y').text(loc.y/10);
+
+    GoAI()
+})
+
+function GoAI() {
+    $.ajax({
+        url: "/get_go",
+        type: "post",
+        data: {
+            state: MapState1D()
+        },
+        success: function(result) {
+            console.log(result);
+            setGo(result[1], result[0]);
+        }
     })
+}
 
 function setGo(x,y){
     var svg = document.querySelector('svg'); 

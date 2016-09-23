@@ -1,0 +1,3 @@
+[submodule "alphagomoku/deep_learning"]
+	path = alphagomoku/deep_learning
+	url = git://github.com/AlphaGomoku/deep_learning.git
