@@ -1,0 +1,97 @@
+<!doctype html>
+
+<html>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/model_go.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/view_go.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/validate_go.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/Interface.js') }}"></script>
+<body>
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" width=500 height=500 viewBox="0 0 150 150">
+    <rect width="150" height="150" fill="#DCB35C"/>
+    <rect width="140" height="140" x="5" y="5" stroke="#000" stroke-width="1" fill="none"/>
+    <path stroke="#000" stroke-width=".5" fill="none" d="m5,15h140m0,10h-140m0,10h140m0,10h-140m0,10h140m0,10h-140m0,10h140m0,10h-140m0,10h140m0,10h-140m0,10h140m0,10h-140m0,10h140m0,10h-140m0,"/>
+    <path stroke="#000" stroke-width=".5" fill="none" d="m5,5v140m10,0v-140m10,0v140m10,0v-140m10,0v140m10,0v-140m10,0v140m10,0v-140m10,0v140m10,0v-140m10,0v140m10,0v-140m10,0v140m10,0v-140m10,"/>
+    <path stroke="#000" stroke-width="3" stroke-linecap="round" d="m35,115l0,0m40,0l0,0m40,0l0,0m0-40l0,0m-40,0l0,0m-40,0l0,0m0-40l0,0m40,0l0,0m40,0l0,0"/>
+</svg>
+
+<div class=coordinate>
+    <span id=point_x> </span>
+    <span id=point_y> </span>
+</div>
+
+<button onclick='view.remove_circ(0)'> remove! </button>
+<button onclick='view.remove_circ(1)'> remove all </button>
+
+
+<script>
+
+//변수 선언
+var circ_data = [] 
+var circ_back = []
+var verify_data = {} 
+var verify_data_back = {}
+var list_go = []
+var list_back = []
+var review = 0
+var dol_color = 'black'
+
+
+var Map = new Array(15);
+for(var n = 0;n<15;n++){
+    Map[n]=new Array(15);
+    for(var m=0;m<15;m++){
+        Map[n][m]=0;
+    }
+}
+
+function MapIni(){ for(var n = 0;n<15;n++){ for(var m=0;m<15;m++){ Map[n][m]=0; } } }
+
+// screen -> svg 좌표로 mapping
+function cursorPoint(e){
+
+    var svg = document.querySelector('svg') 
+    var pt = svg.createSVGPoint()
+    pt.x = e.clientX; pt.y = e.clientY
+
+    return pt.matrixTransform(svg.getScreenCTM().inverse())
+}
+
+// 바둑돌 놓기
+$('svg').on('click', function(e) {
+    var loc = cursorPoint(e) 
+    loc.x = Math.round((loc.x+5)/10)*10-5
+    loc.y = Math.round((loc.y+5)/10)*10-5
+    console.log(loc.x+', ' + loc.y);
+  
+        {
+            view.add_circ(loc.x,loc.y)
+          
+        }
+    $('span#point_x').text(loc.x/10);
+    $('span#point_y').text(loc.y/10);
+    })
+
+function setGo(x,y){
+    var svg = document.querySelector('svg'); 
+    var pt = svg.createSVGPoint();
+    pt.x = x*10; pt.y = y*10;
+    var loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+    if (validate.isThere(list_go,loc) == 1)
+        {alert("already there")}
+    else
+        {view.add_circ(x*10+5,y*10+5)}
+    $('span#point_x').text(loc.x);
+    $('span#point_y').text(loc.y);
+}
+
+</script>
+
+
+</body>
+
+</html>
