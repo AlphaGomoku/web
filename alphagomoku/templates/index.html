@@ -24,6 +24,7 @@
     <span id=point_y> </span>
 </div>
 
+<button onclick='GoAI()'> Go of AI! </button>
 <button onclick='view.remove_circ(0)'> remove! </button>
 <button onclick='view.remove_circ(1)'> remove all </button>
 
@@ -74,8 +75,6 @@ $('svg').on('click', function(e) {
 
     $('span#point_x').text(loc.x/10);
     $('span#point_y').text(loc.y/10);
-
-    GoAI()
 })
 
 function GoAI() {
