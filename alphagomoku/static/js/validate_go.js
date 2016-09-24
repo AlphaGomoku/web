@@ -90,7 +90,7 @@ validate.isWin = function(cIdx,x,y) {
                 ny = ty+dy;
             }
         }       
-        if(cnt>=5) return true;
+        if((cIdx == 1 && cnt==5) || (cIdx == -1 && cnt>=5)) return true;
     }
     return false;
 } 
@@ -98,17 +98,18 @@ validate.isWin = function(cIdx,x,y) {
 validate.isThreeThree = function(cIdx,x,y) {
     var fourNum=0;
     var threeNum=0;
-        for(var n=0;n<4;n++){
+    for(var n=0;n<4;n++){
         var dx = dX[n],dy = dY[n];
         var cnt = 1;
-        var flag =1;
+        var flag = [1,1];
+        var okFlag = false;
         for(var m=0;m<2;m++){
             dx*=-1;
             dy*=-1;
             var tx = x,ty = y;
             var nx = tx+dx,ny = ty+dy;
-            while(nx>=0 && nx<15 && ny>=0 && ny<15 && (cIdx==Map[ny][nx] || flag==1)){
-                if(cIdx!=Map[ny][nx]) flag=0;                
+            while(nx>=0 && nx<15 && ny>=0 && ny<15 && (cIdx==Map[ny][nx] || (Map[ny][nx] == 0 && flag[m]==1))){
+                if(cIdx!=Map[ny][nx])  flag[m]=0;
                 else cnt++;
                 tx = nx; 
                 ty = ny;
@@ -116,10 +117,11 @@ validate.isThreeThree = function(cIdx,x,y) {
                 ny = ty+dy;
             }
         }     
-        if(cnt==3) threeNum++;  
-        else if(cnt==4) fourNum++;
+        if( flag[0] == 0 && flag[1] == 0 && cnt==3) threeNum++;
+        else if( flag[0] == 0 && flag[1] == 0 && cnt==4) fourNum++;
        console.log("Cnt : " +cnt);
     }
+    console.log("3/4 Count : " + threeNum + ", " + fourNum);
     if (threeNum>=2 && fourNum == 0){alert('3X3 invalid'); return true;}
     else if(fourNum>=2) {alert('4X4 invalid'); return true;} 
     else return false;
@@ -143,7 +145,7 @@ validate.isSix = function(cIdx,x,y) {
                 ny = ty+dy;
             }
         }       
-        if(cnt>5) {alert('over 5 invalid'); return true;}
+        //if(cnt>5) {alert('over 5 invalid'); return true;}
     }
     return false;
 } //end 
