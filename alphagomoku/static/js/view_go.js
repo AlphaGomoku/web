@@ -55,7 +55,10 @@ view.remove_circ = function (all) {
        get_last_id = get_last_id[get_last_id.length-1] 
        model.pop('list_go')
        model.pop_obj('verify_data',get_last_id)
-       dol_color = dol_color == 'black' ? 'white' : 'black' 
+       dol_color = dol_color == 'black' ? 'white' : 'black'
+        xidx = parseInt((get_last_id % 10000) / 10);
+        yidx = parseInt(get_last_id / 100000);
+        Map[yidx][xidx] = 0;
     }
     
 
