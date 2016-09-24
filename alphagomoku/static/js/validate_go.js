@@ -102,23 +102,30 @@ validate.isThreeThree = function(cIdx,x,y) {
         var dx = dX[n],dy = dY[n];
         var cnt = 1;
         var flag = [1,1];
-        var okFlag = false;
+        var okFlag = [false,false];
         for(var m=0;m<2;m++){
             dx*=-1;
             dy*=-1;
             var tx = x,ty = y;
             var nx = tx+dx,ny = ty+dy;
-            while(nx>=0 && nx<15 && ny>=0 && ny<15 && (cIdx==Map[ny][nx] || (Map[ny][nx] == 0 && flag[m]==1))){
-                if(cIdx!=Map[ny][nx])  flag[m]=0;
+            while(nx>=0 && nx<15 && ny>=0 && ny<15 && (cIdx==Map[ny][nx] || Map[ny][nx] == 0)){
+                okFlag[m] = false;
+                if(Map[ny][nx] == 0)  {
+                    okFlag[m] = true;
+                    if(flag[m]==1)
+                        flag[m]=0;
+                    else
+                        break;
+                }
                 else cnt++;
-                tx = nx; 
+                tx = nx;
                 ty = ny;
                 nx = tx+dx;
                 ny = ty+dy;
             }
-        }     
-        if( flag[0] == 0 && flag[1] == 0 && cnt==3) threeNum++;
-        else if( flag[0] == 0 && flag[1] == 0 && cnt==4) fourNum++;
+        }
+        if( okFlag[0] && okFlag[1] && cnt==3) threeNum++;
+        else if( okFlag[0] && okFlag[1] && cnt==4) fourNum++;
        console.log("Cnt : " +cnt);
     }
     console.log("3/4 Count : " + threeNum + ", " + fourNum);
