@@ -120,7 +120,7 @@ validate.isThreeThree = function(cIdx,x,y) {
         else if(cnt==4) fourNum++;
        console.log("Cnt : " +cnt);
     }
-    if (threeNum>=2){alert('3X3 invalid'); return true;}
+    if (threeNum>=2 && fourNum == 0){alert('3X3 invalid'); return true;}
     else if(fourNum>=2) {alert('4X4 invalid'); return true;} 
     else return false;
 
