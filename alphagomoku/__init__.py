@@ -30,7 +30,13 @@ def create_app():
     @app.route('/get_go', methods=['POST'])
     def get_go():
         state = request.form.getlist('state[]')
-        state = [-int(s) for s in state]
+        state = [int(s) for s in state]
+        dol_cnt = 0
+        for s in state:
+            if s != 0:
+                dol_cnt += 1
+        if dol_cnt%2 == 1:  # white
+            state = [-s for s in state]
         state2D = [state[idx*15:(idx+1)*15] for idx in range(15)]
         explicit_go = handmade_AI(state2D)
         explicit_go = [y*15+x for y,x in explicit_go]
