@@ -109,7 +109,8 @@ def handmade_AI(arra):
 			array[i1][j1]=0
 			if chk==0:
 				possible_list.append([i1, j1])
-			
+
+	print("attack finish", possible_list)
 	if len(possible_list)>0:
 		return possible_list
 
@@ -139,7 +140,7 @@ def handmade_AI(arra):
 			array[i1][j1]=0
 			if chk==0:
 				possible_list.append([i1, j1])
-
+	print("defense finish", possible_list)
 	return possible_list
 
 
