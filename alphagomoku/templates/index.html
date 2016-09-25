@@ -91,6 +91,12 @@ $(document).ready(function() {
 });
 
 function GoAI() {
+
+    if(dol_color==='black') {
+        alert("We support only white AI.");
+        return;
+    }
+
     $.ajax({
         url: "/get_go",
         type: "post",
